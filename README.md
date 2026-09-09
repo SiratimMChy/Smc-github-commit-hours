@@ -1,172 +1,131 @@
-# Commit Hours
+<div align="center">
 
-A professional API service that visualizes your GitHub commit activity distribution across 24 hours of the day. This tool generates an interactive SVG chart showing when you're most productive on GitHub.
+# SMC Commit Hours
 
-## Overview
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-404D59?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
+[![GitHub stars](https://img.shields.io/github/stars/SiratimMChy/smc-github-commit-hours?style=flat-square)](https://github.com/SiratimMChy/smc-github-commit-hours/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-Commit Hours analyzes your GitHub contribution data and creates a beautiful, animated bar chart displaying your commit patterns by hour of the day. The visualization helps you understand your coding habits and productivity patterns at a glance.
+A visually stunning API service that generates an interactive SVG chart of your GitHub commit activity over a 24-hour period. Perfect for showcasing your productivity patterns directly on your GitHub profile README!
 
-## Features
+</div>
 
-- **GitHub GraphQL Integration**: Fetches real contribution data directly from GitHub
-- **Hourly Distribution Analysis**: Intelligently distributes daily commits across 24-hour periods
-- **SVG Visualization**: Generates a responsive, animated chart with gradient effects
-- **Caching Support**: Implements HTTP caching for optimal performance
-- **Deterministic Distribution**: Uses pseudo-random algorithms for consistent, reproducible hourly breakdowns
-- **Professional Design**: Modern dark theme with glowing effects and smooth animations
+---
 
-## Prerequisites
+## 👋 Overview
 
-- Node.js (v14 or higher)
-- GitHub Personal Access Token with read access to contributions
-- npm or yarn package manager
+**SMC GitHub Commit Hours** analyzes your GitHub contribution data and creates a beautiful, animated bar chart displaying your commit patterns by hour of the day. This visual summary helps you easily understand your coding habits and daily productivity patterns at a glance.
 
-## Installation
+## ✨ Features
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd smc-github-commit-hours
-```
+- **Real-Time Data**: Directly fetches your contribution stats using the GitHub GraphQL API.
+- **Smart Distribution**: Uses a clever pseudo-random algorithm to realistically break down your daily commits across 24 hours.
+- **Eye-Catching SVGs**: Generates beautifully crafted, responsive charts with glowing gradients and smooth animations.
+- **Lightning Fast**: Implements HTTP caching to ensure optimal performance and minimal API calls.
 
-2. Install dependencies:
-```bash
-npm install
-```
+## 🛠️ Tech Stack
 
-3. Create a `.env` file in the root directory with your GitHub credentials:
-```env
-GITHUB_TOKEN=your_github_personal_access_token
-USERNAME=your_github_username
-PORT=3000
-```
+- **[Express.js](https://expressjs.com/)**: Fast and minimalist web server framework.
+- **[Axios](https://axios-http.com/)**: Promise-based HTTP client for the browser and node.js.
+- **[GitHub GraphQL API](https://docs.github.com/en/graphql)**: The engine powering our data retrieval.
 
-## Configuration
+## 🚀 Getting Started
 
-### Environment Variables
+### Prerequisites
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `GITHUB_TOKEN` | GitHub Personal Access Token for API authentication | Yes |
-| `USERNAME` | Your GitHub username | Yes |
-| `PORT` | Server port (defaults to 3000) | No |
+Before you begin, make sure you have:
+- Node.js (v14 or higher) installed
+- A GitHub Personal Access Token (make sure to include the `read:user` scope)
+- npm or yarn
 
-### Obtaining a GitHub Token
+### Installation
 
-1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
-2. Click "Generate new token"
-3. Select `read:user` scope for reading public contribution data
-4. Copy the token and add it to your `.env` file
+1. Grab the repository:
+   ```bash
+   git clone https://github.com/SiratimMChy/smc-github-commit-hours.git
+   cd smc-github-commit-hours
+   ```
 
-## Usage
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
 
-### Starting the Server
+3. Set up your environment by creating a `.env` file in the root directory:
+   ```env
+   GITHUB_TOKEN=your_github_personal_access_token
+   USERNAME=your_github_username
+   PORT=3000
+   ```
 
+### Obtaining Your GitHub Token
+1. Head over to [Personal access tokens](https://github.com/settings/tokens) in your GitHub Developer settings.
+2. Click on **Generate new token**.
+3. Be sure to select the `read:user` scope.
+4. Paste that shiny new token into your `.env` file!
+
+## 💡 Usage
+
+### Running Locally
+
+Fire up the server with:
 ```bash
 npm start
 ```
-
-The server will start on the configured PORT (default: 3000).
+By default, the magic happens on port `3000`.
 
 ### API Endpoints
 
-#### GET `/commits-hour`
-Returns an SVG visualization of your hourly commit distribution.
+#### `GET /commits-hour`
+This is where the magic happens. It generates and returns the awesome SVG chart of your commit distribution.
 
-**Response:**
-- Content-Type: `image/svg+xml`
-- Cache-Control: `public, max-age=3600` (1 hour cache)
-
-**Example:**
+**Try it out:**
 ```bash
 curl http://localhost:3000/commits-hour
 ```
 
-#### GET `/`
-Health check endpoint.
-
-**Response:**
-```
-Commit Hour API Running 🚀
+**Add it to your Markdown:**
+```markdown
+![My Commit Hours](http://localhost:3000/commits-hour)
 ```
 
-## How It Works
+#### `GET /`
+Just checking in! A basic health check to make sure the API is awake and running.
 
-### Data Collection
-1. Queries GitHub GraphQL API for your contribution calendar
-2. Retrieves daily contribution counts for the past year
+## 🌍 Deployment
 
-### Hourly Distribution
-The application uses a deterministic pseudo-random algorithm to distribute daily commits across 24 hours:
-- **0-5 AM**: 15% of commits (early morning)
-- **6-11 AM**: 20% of commits (morning)
-- **12-5 PM**: 30% of commits (afternoon)
-- **6-11 PM**: 35% of commits (evening/night)
+Ready to share it with the world? This project is tailored for an effortless deployment on **Vercel**.
 
-This distribution creates a realistic pattern based on typical developer schedules.
-
-### Visualization
-- Generates an SVG chart with animated bars
-- Each bar represents commits at a specific hour
-- Includes gradient effects and glowing animations
-- Responsive design that scales to different screen sizes
-
-## Technical Stack
-
-- **Express.js**: Web server framework
-- **Axios**: HTTP client for API requests
-- **dotenv**: Environment variable management
-- **GitHub GraphQL API**: Data source for contribution metrics
-
-## Project Structure
-
-```
-smc-github-commit-hours/
-├── index.js              # Main application file
-├── package.json          # Project dependencies
-├── .env                  # Environment configuration (not committed)
-├── .gitignore            # Git ignore rules
-└── README.md             # This file
-```
-
-## Performance Considerations
-
-- **Caching**: SVG responses are cached for 1 hour to reduce API calls
-- **GraphQL Efficiency**: Single GraphQL query fetches all contribution data
-- **Deterministic Algorithm**: Pseudo-random distribution ensures consistent results
-
-## Troubleshooting
-
-### "Error: Invalid token"
-- Verify your GitHub token is valid and has not expired
-- Check that the token has appropriate permissions
-
-### "Error: User not found"
-- Ensure the USERNAME environment variable matches your GitHub username exactly
-- Check for typos in the username
-
-### No commits showing
-- Verify you have public contributions on GitHub
-- Check that your contribution calendar is not private
-
-## Deployment
-
-This application is configured for deployment on Vercel. The `.vercel` directory contains deployment configuration.
-
-### Deploy to Vercel
-
-```bash
-vercel deploy
-```
-
-## License
-
-ISC
-
-## Author
-
-Created for personal GitHub analytics and productivity tracking.
+1. Grab the Vercel CLI if you haven't already:
+   ```bash
+   npm i -g vercel
+   ```
+2. Send it to the cloud:
+   ```bash
+   vercel --prod
+   ```
+*Don't forget to add your `GITHUB_TOKEN` and `USERNAME` to the environment variables section in your Vercel dashboard!*
 
 ---
 
-**Note**: This tool is designed for personal use. Ensure you comply with GitHub's Terms of Service when using their API.
+## License & Contributions
+
+This project is open-source. Anyone is free to view, explore, and contribute to this repository. 
+
+**Usage of Cards:** You are free to generate and use these contribution graph cards on your own profile, websites, or applications. However, **you must provide proper credit** to the original creator. Using the generated cards or this codebase without attribution is not allowed.
+
+Distributed under the **MIT License**. See the license details for more information.
+
+*Copyright © 2026 SMC Commit Hours. All rights reserved.*
+
+<br/>
+
+<div align="center">
+
+**Made by Siratim Mustakim Chowdhury**
+
+[![GitHub](https://img.shields.io/badge/GitHub-SiratimMChy-181717?style=flat&logo=github)](https://github.com/SiratimMChy)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Siratim%20Mustakim-0077B5?style=flat&logo=linkedin)](https://www.linkedin.com/in/siratim-mustakim-chowdhury/)
+[![Email](https://img.shields.io/badge/Email-chowdhurysiratimmustakim@gmail.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:chowdhurysiratimmustakim@gmail.com)
+</div>
