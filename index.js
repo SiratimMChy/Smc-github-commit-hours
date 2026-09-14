@@ -13,7 +13,7 @@ const headers = {
 };
 
 
-// 🔥 Fetch contribution calendar
+// Fetch contribution calendar
 async function getContributionData() {
   const query = {
     query: `
@@ -43,7 +43,7 @@ async function getContributionData() {
 }
 
 
-// 🔥 Convert to hourly distribution (SIMULATION LOGIC)
+// Convert to hourly distribution (SIMULATION LOGIC)
 function getHourlyData(weeks) {
   const hours = new Array(24).fill(0);
 
@@ -75,7 +75,7 @@ function getHourlyData(weeks) {
 }
 
 
-// 🔥 SVG BAR CHART
+// SVG BAR CHART
 function createBarChart(hours) {
   const max = Math.max(...hours) || 1;
   const maxLabel = Math.ceil(max / 10) * 10 || 10;
@@ -133,7 +133,7 @@ function createBarChart(hours) {
 }
 
 
-// 🎯 MAIN ROUTE
+// MAIN ROUTE
 app.get("/commits-hour", async (req, res) => {
   try {
     const weeks = await getContributionData();
@@ -231,7 +231,7 @@ app.get("/commits-hour", async (req, res) => {
 
 // health
 app.get("/", (req, res) => {
-  res.send("Commit Hour API Running 🚀");
+  res.send("Commit Hour API Running");
 });
 
 
